@@ -35,7 +35,7 @@ public final class Jamaican{
         }
 
         connection.EVENT_BUS.register(CommandListener.instance());
-        connection.connect(new InetSocketAddress("irc.esper.net", 6667), new IRCProfile("Jamaican", "Jamaican", "Jamaican"));
+        connection.connect(new InetSocketAddress("ipv6.esper.net", 6667), new IRCProfile("Jamaican", "Jamaican", "Jamaican"));
         TimeUnit.SECONDS.sleep(10);
         connection.join("#iWin");
         while(connection.isConnected()){
