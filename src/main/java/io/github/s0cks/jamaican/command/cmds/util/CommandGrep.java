@@ -14,6 +14,11 @@ implements Command{
     }
 
     @Override
+    public String getExample(){
+        return ">grep junit:junit:4.11 org.junit.Assert";
+    }
+
+    @Override
     public String getHelp(){
         return ">grep [gradle style dependency] [classpath]";
     }
