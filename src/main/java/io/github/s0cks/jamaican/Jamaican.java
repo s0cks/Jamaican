@@ -39,7 +39,7 @@ public final class Jamaican{
         TimeUnit.SECONDS.sleep(10);
         connection.join("#iWin");
         while(connection.isConnected()){
-            // Fallthrough
+            TimeUnit.DAYS.sleep(1);
         }
     }
 }
