@@ -3,6 +3,7 @@ package io.github.s0cks.jamaican.thread;
 import io.github.s0cks.jamaican.Jamaican;
 import io.github.s0cks.jamaican.event.IRCEvent.ChannelMessageEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.JoinChannelEvent;
+import io.github.s0cks.jamaican.event.IRCEvent.OnConnectEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.PartChannelEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.PingEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.PrivateMessageEvent;
@@ -29,6 +30,22 @@ public final class ReadThread
             String line;
             while((line = reader.readLine()) != null){
                 this.parseLine(line);
+
+                int firstSpace = line.indexOf(" ");
+                int secondSpace = line.indexOf(" ", firstSpace + 1);
+                if(secondSpace >= 0){
+                    String code = line.substring(firstSpace + 1, secondSpace);
+
+                    if(code.equals("004")){
+                        this.connection.EVENT_BUS.post(new OnConnectEvent(this.connection));
+                    } else if(code.equals("433")){
+                        Jamaican.logger.error("Nick already taken");
+                        System.exit(-1);
+                    } else if(code.startsWith("5") || code.startsWith("4")){
+                        Jamaican.logger.error("Cannot log into IRC Server");
+                        System.exit(-1);
+                    }
+                }
             }
         } catch(Exception e){
             e.printStackTrace(System.err);

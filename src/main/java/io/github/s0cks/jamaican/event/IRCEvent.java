@@ -9,6 +9,13 @@ public class IRCEvent{
         this.connection = connection;
     }
 
+    public static final class OnConnectEvent
+    extends IRCEvent{
+        public OnConnectEvent(IRCConnection connection){
+            super(connection);
+        }
+    }
+
     public static final class JoinChannelEvent
             extends IRCEvent{
         public final String user;

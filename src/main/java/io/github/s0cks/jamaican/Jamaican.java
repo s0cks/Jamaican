@@ -1,6 +1,7 @@
 package io.github.s0cks.jamaican;
 
 import io.github.s0cks.jamaican.command.CommandListener;
+import io.github.s0cks.jamaican.event.IRCEvent.OnConnectEvent;
 import io.github.s0cks.jamaican.module.ExpanderModule;
 import io.github.s0cks.jamaican.net.irc.IRCConnection;
 import io.github.s0cks.jamaican.net.irc.IRCProfile;
@@ -8,6 +9,8 @@ import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.TimeUnit;
@@ -34,12 +37,13 @@ public final class Jamaican{
             connection.EVENT_BUS.register(ExpanderModule.instance());
         }
 
+        connection.EVENT_BUS.register(new Jamaican());
         connection.EVENT_BUS.register(CommandListener.instance());
         connection.connect(new InetSocketAddress("ipv6.esper.net", 6667), new IRCProfile("Jamaican", "Jamaican", "Jamaican"));
-        TimeUnit.SECONDS.sleep(10);
-        connection.join("#iWin");
-        while(connection.isConnected()){
-            TimeUnit.DAYS.sleep(1);
-        }
+    }
+
+    @Subscribe
+    public void onConnectEsper(OnConnectEvent e){
+        e.connection.join("#iWin");
     }
 }
