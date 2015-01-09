@@ -23,7 +23,8 @@ public final class ReadThread
 
     @Override
     public void run(){
-        try(BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()))){
+        try{
+            BufferedReader reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
             String line;
             while((line = reader.readLine()) != null){
                 this.parseLine(line);
