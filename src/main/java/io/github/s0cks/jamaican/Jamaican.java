@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import java.net.InetSocketAddress;
+import java.util.concurrent.TimeUnit;
 
 public final class Jamaican{
     public static final Logger logger = LogManager.getLogger(Jamaican.class);
@@ -38,7 +39,11 @@ public final class Jamaican{
 
         connection.EVENT_BUS.register(new Jamaican());
         connection.EVENT_BUS.register(CommandListener.instance());
-        connection.connect(new InetSocketAddress("ipv6.esper.net", 6667), new IRCProfile("Jamaican", "Jamaican", "Jamaican"));
+        connection.connect(new InetSocketAddress("ipv6.esper.net", 6667),
+                new IRCProfile("Jamaican", "Jamaican", "Jamaican"));
+        while(connection.isConnected()){
+            TimeUnit.DAYS.sleep(1);
+        }
     }
 
     @Subscribe
