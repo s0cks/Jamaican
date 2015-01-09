@@ -38,12 +38,6 @@ public final class ReadThread
 
                     if(code.equals("004")){
                         this.connection.EVENT_BUS.post(new OnConnectEvent(this.connection));
-                    } else if(code.equals("433")){
-                        Jamaican.logger.error("Nick already taken");
-                        System.exit(-1);
-                    } else if(code.startsWith("5") || code.startsWith("4")){
-                        Jamaican.logger.error("Cannot log into IRC Server");
-                        System.exit(-1);
                     }
                 }
             }

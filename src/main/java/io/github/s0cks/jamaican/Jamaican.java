@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 import com.google.common.eventbus.Subscribe;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.TimeUnit;
 
 public final class Jamaican{
     public static final Logger logger = LogManager.getLogger(Jamaican.class);
