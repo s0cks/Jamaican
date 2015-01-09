@@ -1,5 +1,6 @@
 package io.github.s0cks.jamaican.thread;
 
+import io.github.s0cks.jamaican.Jamaican;
 import io.github.s0cks.jamaican.event.IRCEvent.ChannelMessageEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.JoinChannelEvent;
 import io.github.s0cks.jamaican.event.IRCEvent.PartChannelEvent;
@@ -40,6 +41,7 @@ public final class ReadThread
             this.connection.writeRaw(line.replace("PING", "PONG"));
             return;
         }
+        Jamaican.logger.info(line);
 
         String[] tokens = line.split(" ");
         String nick = "";
